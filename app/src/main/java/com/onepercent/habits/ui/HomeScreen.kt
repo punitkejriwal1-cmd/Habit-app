@@ -67,9 +67,10 @@ fun HomeScreen(
                         Spacer(Modifier.width(6.dp))
                         Text("Habits", fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(8.dp))
+                        val todayKey = state.dateKeys.firstOrNull().orEmpty()
                         val done = state.habits.count { h ->
-                            state.logsByKey[state.dateKeys.firstOrNull().orEmpty()]?.get(h.id)?.status
-                                in setOf("done", "partial")
+                            val status = state.logsByKey[todayKey]?.get(h.id)?.status
+                            status == "done" || status == "partial"
                         }
                         Text(
                             "$done/${state.habits.size}",
@@ -109,7 +110,11 @@ fun HomeScreen(
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary,
                         )
-                        Text(d?.dayOfMonth?.toString().orEmpty(), style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
+                        Text(
+                            d?.dayOfMonth?.toString().orEmpty(),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
             }
@@ -161,14 +166,27 @@ private fun HabitRow(
                 Modifier.clip(RoundedCornerShape(50)).background(pill)
                     .padding(horizontal = 12.dp, vertical = 6.dp),
             ) {
-                Text(habit.name, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(
+                    habit.name,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
             if (dur.isNotEmpty()) {
-                Text(dur, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp, start = 4.dp))
+                Text(
+                    dur,
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp, start = 4.dp),
+                )
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            dateKeys.forEach { key -> StatusCell(logsByKey[key]?.get(habit.id)) { onCell(key) } }
+            dateKeys.forEach { key ->
+                StatusCell(logsByKey[key]?.get(habit.id)) { onCell(key) }
+            }
         }
     }
 }
@@ -194,7 +212,12 @@ private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
         when (log?.status) {
             "done" -> Icon(Icons.Default.Check, null, tint = fg, modifier = Modifier.size(18.dp))
             "missed" -> Icon(Icons.Default.Close, null, tint = fg, modifier = Modifier.size(18.dp))
-            "partial" -> Text("${log.partialPct.coerceAtLeast(10)}%", color = fg, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            "partial" -> Text(
+                "${log.partialPct.coerceAtLeast(10)}%",
+                color = fg,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+            )
             else -> Text(".", color = fg)
         }
     }
