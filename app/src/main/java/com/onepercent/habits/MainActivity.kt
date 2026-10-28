@@ -20,11 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-/**
- * Compose-only diagnostic: no ViewModel, no icons, no navigation, no receivers.
- * If this crashes → Compose/Material3 itself is the problem on this device.
- * If this shows OK → next we add ViewModel carefully.
- */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
