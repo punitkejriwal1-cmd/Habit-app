@@ -148,7 +148,7 @@ private fun HabitRow(
     val start = format12(habit.startTime)
     val end = if (habit.endTime.isNotBlank()) format12(habit.endTime) else ""
     val dur = durationLabel(habit.startTime, habit.endTime)
-    val pill = Color(habit.color.toULong())
+    val pill = Color(habit.color.toInt())
     Row(
         Modifier.fillMaxWidth().clickable(onClick = onEdit).padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
