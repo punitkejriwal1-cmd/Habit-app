@@ -9,7 +9,7 @@ import com.onepercent.habits.data.HabitRepository
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         try {
-            val repo = HabitRepository(context.applicationContext)
+            val repo = HabitRepository(context)
             NotificationHelper.scheduleAll(context, repo.getAllHabits())
         } catch (t: Throwable) {
             Log.e("TimetableReview", "BootReceiver", t)

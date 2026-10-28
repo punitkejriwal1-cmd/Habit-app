@@ -29,7 +29,7 @@ data class HabitLog(
 )
 
 class HabitRepository(context: Context) {
-    private val prefs = context.getSharedPreferences("habits_store", Context.MODE_PRIVATE)
+    private val prefs = context.applicationContext.getSharedPreferences("timetable_review", Context.MODE_PRIVATE)
     private val _habits = MutableStateFlow(loadHabits())
     private val _logs = MutableStateFlow(loadLogs())
 

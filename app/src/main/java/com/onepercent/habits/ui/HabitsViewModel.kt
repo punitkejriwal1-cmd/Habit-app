@@ -23,7 +23,7 @@ data class HomeUiState(
 )
 
 class HabitsViewModel(app: Application) : AndroidViewModel(app) {
-    private val repo = HabitRepository(app.applicationContext)
+    private val repo = HabitRepository(app)
     private val ctx = app.applicationContext
 
     private val dateKeys = listOf(
@@ -37,19 +37,12 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
             val inner = map.getOrPut(log.dateKey) { HashMap() }
             inner[log.habitId] = log
         }
-        HomeUiState(
-            habits = habits,
-            logsByKey = map,
-            dateKeys = dateKeys,
-        )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = HomeUiState(),
-    )
+        HomeUiState(habits = habits, logsByKey = map, dateKeys = dateKeys)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     fun refreshAlarms() {
         try {
+            NotificationHelper.createChannel(ctx)
             NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
         } catch (t: Throwable) {
             Log.e(TAG, "refreshAlarms", t)
@@ -88,8 +81,7 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
         try {
             NotificationHelper.cancelSchedule(ctx, id)
             NotificationHelper.cancel(ctx, id, HabitRepository.dateKey(0))
-        } catch (t: Throwable) {
-            Log.e(TAG, "cancel", t)
+        } catch (_: Throwable) {
         }
         repo.deleteHabit(id)
     }
@@ -99,8 +91,7 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
         if (dateKey == HabitRepository.dateKey(0)) {
             try {
                 NotificationHelper.cancel(ctx, habitId, dateKey)
-            } catch (t: Throwable) {
-                Log.e(TAG, "cancel mark", t)
+            } catch (_: Throwable) {
             }
         }
     }

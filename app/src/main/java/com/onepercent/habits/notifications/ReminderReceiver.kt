@@ -10,7 +10,7 @@ class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         try {
             val habitId = intent.getStringExtra("habitId") ?: return
-            val repo = HabitRepository(context.applicationContext)
+            val repo = HabitRepository(context)
             val habit = repo.getAllHabits().find { it.id == habitId } ?: return
             val today = HabitRepository.dateKey(0)
             NotificationHelper.showSticky(context, habit, today)

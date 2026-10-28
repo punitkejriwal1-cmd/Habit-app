@@ -11,7 +11,6 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.onepercent.habits.MainActivity
-import com.onepercent.habits.R
 import com.onepercent.habits.data.Habit
 import java.util.Calendar
 
@@ -24,10 +23,10 @@ object NotificationHelper {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val channel = NotificationChannel(
                     CHANNEL_ID,
-                    context.getString(R.string.channel_habits),
+                    "Habit reminders",
                     NotificationManager.IMPORTANCE_HIGH,
                 ).apply {
-                    description = context.getString(R.string.channel_habits_desc)
+                    description = "Sticky reminders until you mark the habit"
                 }
                 context.getSystemService(NotificationManager::class.java)
                     ?.createNotificationChannel(channel)
@@ -50,8 +49,6 @@ object NotificationHelper {
             val id = notificationId(habit.id, dateKey)
             val open = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                putExtra("habitId", habit.id)
-                putExtra("dateKey", dateKey)
             }
             val contentPi = PendingIntent.getActivity(
                 context, id, open,

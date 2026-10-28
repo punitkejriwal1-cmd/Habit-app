@@ -35,10 +35,7 @@ private val Light = lightColorScheme(
 )
 
 @Composable
-fun OnePercentTheme(
-    darkTheme: Boolean = true,
-    content: @Composable () -> Unit,
-) {
+fun AppTheme(darkTheme: Boolean = true, content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = if (darkTheme) OledDark else Light,
         content = content,
