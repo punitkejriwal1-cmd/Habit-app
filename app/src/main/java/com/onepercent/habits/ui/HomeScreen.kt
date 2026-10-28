@@ -145,6 +145,7 @@ private fun HabitRow(
     val start = format12(habit.startTime)
     val end = if (habit.endTime.isNotBlank()) format12(habit.endTime) else ""
     val dur = durationLabel(habit.startTime, habit.endTime)
+    val pill = Color(habit.color.toULong())
     Row(
         Modifier.fillMaxWidth().clickable(onClick = onEdit).padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -157,7 +158,7 @@ private fun HabitRow(
         }
         Column(Modifier.weight(1f)) {
             Box(
-                Modifier.clip(RoundedCornerShape(50)).background(Color(habit.color))
+                Modifier.clip(RoundedCornerShape(50)).background(pill)
                     .padding(horizontal = 12.dp, vertical = 6.dp),
             ) {
                 Text(habit.name, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -175,15 +176,15 @@ private fun HabitRow(
 @Composable
 private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
     val bg = when (log?.status) {
-        "done" -> Color(0xFF34D399L)
-        "partial" -> Color(0xFFFBBF24L)
-        "missed" -> Color(0xFFFB7185L)
+        "done" -> Color(0xFF34D399UL)
+        "partial" -> Color(0xFFFBBF24UL)
+        "missed" -> Color(0xFFFB7185UL)
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
     val fg = when (log?.status) {
-        "done" -> Color(0xFF052E22L)
-        "partial" -> Color(0xFF1C1404L)
-        "missed" -> Color(0xFF2A0A12L)
+        "done" -> Color(0xFF052E22UL)
+        "partial" -> Color(0xFF1C1404UL)
+        "missed" -> Color(0xFF2A0A12UL)
         else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Box(
@@ -194,7 +195,7 @@ private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
             "done" -> Icon(Icons.Default.Check, null, tint = fg, modifier = Modifier.size(18.dp))
             "missed" -> Icon(Icons.Default.Close, null, tint = fg, modifier = Modifier.size(18.dp))
             "partial" -> Text("${log.partialPct.coerceAtLeast(10)}%", color = fg, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-            else -> Text("·", color = fg)
+            else -> Text(".", color = fg)
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -20,7 +20,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,7 +38,7 @@ fun StatusScreen(
     val habit = state.habits.find { it.id == habitId }
     val existing = state.logsByKey[dateKey]?.get(habitId)
     var status by remember { mutableStateOf(existing?.status) }
-    var pct by remember { mutableFloatStateOf((existing?.partialPct ?: 50).toFloat()) }
+    var pct by remember { mutableStateOf((existing?.partialPct ?: 50).toFloat()) }
 
     Scaffold(
         topBar = {
@@ -47,7 +46,7 @@ fun StatusScreen(
                 title = { Text(habit?.name ?: "Habit") },
                 navigationIcon = {
                     IconButton(onClick = onClose) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
             )
@@ -55,22 +54,61 @@ fun StatusScreen(
     ) { padding ->
         Column(Modifier.padding(padding).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(dateKey)
-            if (!habit?.question.isNullOrBlank()) Text(habit!!.question)
+            val q = habit?.question
+            if (!q.isNullOrBlank()) {
+                Text(q)
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilterChip(selected = status == "done", onClick = { status = "done"; vm.mark(habitId, dateKey, "done"); onClose() }, label = { Text("Done") })
-                FilterChip(selected = status == "partial", onClick = { status = "partial" }, label = { Text("Partial") })
-                FilterChip(selected = status == "missed", onClick = { status = "missed" }, label = { Text("Missed") })
+                FilterChip(
+                    selected = status == "done",
+                    onClick = {
+                        status = "done"
+                        vm.mark(habitId, dateKey, "done")
+                        onClose()
+                    },
+                    label = { Text("Done") },
+                )
+                FilterChip(
+                    selected = status == "partial",
+                    onClick = { status = "partial" },
+                    label = { Text("Partial") },
+                )
+                FilterChip(
+                    selected = status == "missed",
+                    onClick = { status = "missed" },
+                    label = { Text("Missed") },
+                )
             }
             if (status == "partial") {
                 Text("Completion ${pct.toInt()}%")
-                Slider(value = pct, onValueChange = { pct = it }, valueRange = 10f..90f, steps = 7)
+                Slider(
+                    value = pct,
+                    onValueChange = { pct = it },
+                    valueRange = 10f..90f,
+                    steps = 7,
+                )
             }
             if (status == "partial" || status == "missed") {
-                Button(onClick = { vm.mark(habitId, dateKey, status!!, if (status == "partial") pct.toInt() else 0); onClose() }, modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = {
+                        val s = status ?: return@Button
+                        vm.mark(habitId, dateKey, s, if (s == "partial") pct.toInt() else 0)
+                        onClose()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
                     Text("Save")
                 }
             }
-            OutlinedButton(onClick = { vm.clearMark(habitId, dateKey); onClose() }, modifier = Modifier.fillMaxWidth()) { Text("Clear") }
+            OutlinedButton(
+                onClick = {
+                    vm.clearMark(habitId, dateKey)
+                    onClose()
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Clear")
+            }
         }
     }
 }

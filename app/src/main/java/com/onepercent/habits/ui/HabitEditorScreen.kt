@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -34,8 +34,14 @@ import com.onepercent.habits.data.Habit
 
 private val DAY_LABELS = listOf("S", "M", "T", "W", "T", "F", "S")
 private val COLORS = listOf(
-    0xFF3B82F6L, 0xFFEC4899L, 0xFFA78B6DL, 0xFF22C55EL,
-    0xFF64748BL, 0xFF8B5CF6L, 0xFFF59E0BL, 0xFF06B6D4L,
+    0xFF3B82F6L,
+    0xFFEC4899L,
+    0xFFA78B6DL,
+    0xFF22C55EL,
+    0xFF64748BL,
+    0xFF8B5CF6L,
+    0xFFF59E0BL,
+    0xFF06B6D4L,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +71,7 @@ fun HabitEditorScreen(
                 title = { Text(if (existing == null) "Create habit" else "Edit habit") },
                 navigationIcon = {
                     IconButton(onClick = onClose) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
             )
@@ -93,7 +99,7 @@ fun HabitEditorScreen(
             Text("Color", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 COLORS.forEach { c ->
-                    FilterChip(selected = color == c, onClick = { color = c }, label = { Text("●") })
+                    FilterChip(selected = color == c, onClick = { color = c }, label = { Text("*") })
                 }
             }
             Spacer(Modifier.height(8.dp))
