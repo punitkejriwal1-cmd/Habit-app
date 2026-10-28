@@ -3,11 +3,16 @@ package com.onepercent.habits.notifications
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.onepercent.habits.HabitsApp
+import android.util.Log
+import com.onepercent.habits.data.HabitRepository
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
-        val app = context.applicationContext as HabitsApp
-        NotificationHelper.scheduleAll(context, app.repository.getAllHabits())
+        try {
+            val repo = HabitRepository(context.applicationContext)
+            NotificationHelper.scheduleAll(context, repo.getAllHabits())
+        } catch (t: Throwable) {
+            Log.e("TimetableReview", "BootReceiver", t)
+        }
     }
 }

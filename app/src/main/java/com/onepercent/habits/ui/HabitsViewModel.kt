@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.onepercent.habits.HabitsApp
 import com.onepercent.habits.data.Habit
 import com.onepercent.habits.data.HabitLog
 import com.onepercent.habits.data.HabitRepository
@@ -24,12 +23,7 @@ data class HomeUiState(
 )
 
 class HabitsViewModel(app: Application) : AndroidViewModel(app) {
-    private val repo: HabitRepository = try {
-        (app as HabitsApp).repository
-    } catch (t: Throwable) {
-        Log.e(TAG, "repository fallback", t)
-        HabitRepository(app)
-    }
+    private val repo = HabitRepository(app.applicationContext)
     private val ctx = app.applicationContext
 
     private val dateKeys = listOf(
@@ -38,12 +32,21 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
     )
 
     val uiState = combine(repo.habits, repo.logs) { habits, logs ->
-        val map = mutableMapOf<String, MutableMap<String, HabitLog>>()
-        logs.forEach { log ->
-            map.getOrPut(log.dateKey) { mutableMapOf() }[log.habitId] = log
+        val map = HashMap<String, HashMap<String, HabitLog>>()
+        for (log in logs) {
+            val inner = map.getOrPut(log.dateKey) { HashMap() }
+            inner[log.habitId] = log
         }
-        HomeUiState(habits = habits, logsByKey = map, dateKeys = dateKeys)
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, HomeUiState())
+        HomeUiState(
+            habits = habits,
+            logsByKey = map,
+            dateKeys = dateKeys,
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = HomeUiState(),
+    )
 
     fun refreshAlarms() {
         try {
