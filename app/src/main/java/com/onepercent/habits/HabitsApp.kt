@@ -6,9 +6,10 @@ import android.util.Log
 class HabitsApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        Log.i(TAG, "HabitsApp.onCreate")
         val default = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { t, e ->
-            Log.e(TAG, "Uncaught in ${t.name}", e)
+            Log.e(TAG, "Uncaught in ${t.name}: ${e.message}", e)
             default?.uncaughtException(t, e)
         }
     }

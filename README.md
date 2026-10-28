@@ -1,42 +1,27 @@
-# Timetable Review (native Android)
+# Timetable Review — diagnostic build 1.1.3-diag
 
-Kotlin + Jetpack Compose habit / timetable app.
+This build uses a **plain Android Activity** (no Compose UI on launch).
 
-- **App name:** Timetable Review
-- **Package ID:** `com.timetablereview.app` (installs next to the old 1% Habits app)
-- **Version:** 1.1.1
+## What you should see
 
-## Download APK
+A dark screen with white text:
 
-GitHub → **Actions** → latest green run → artifact **one-percent-habits-native**
+```
+Timetable Review
 
-Or build locally:
+v1.1.3-diag OK
 
-```bash
-./gradlew :app:assembleDebug
-# APK: app/build/outputs/apk/debug/app-debug.apk
+If you see this, the app can open.
+Next step: re-enable Compose UI.
 ```
 
-## Install on phone
+## Tell Grok the result
 
-1. Enable **Install unknown apps** for your browser / Files.
-2. Install the APK.
-3. Open the app once.
+1. **Opens and shows that text** → packaging is fine; crash was in Compose/ViewModel.
+2. **Still crashes immediately** → packaging/manifest/OEM issue; reply with your phone model + Android version.
 
-### Realme / OPPO / Xiaomi battery (important)
+## Download
 
-**Settings → Apps → Timetable Review → Battery → No restrictions** (or "Allow background activity").
+GitHub → Actions → latest green **Android APK** → artifact **one-percent-habits-native**
 
-Otherwise reminders are killed by the OEM battery optimizer.
-
-### Notifications (Android 13+)
-
-When the app opens it will ask for notification permission. Allow it for sticky habit reminders.
-
-## Stability fixes in 1.1.1
-
-- Replaced system drawable launcher icon (crashed / blank on many OEM launchers) with proper adaptive + legacy icons.
-- Hardened exact-alarm scheduling so missing `SCHEDULE_EXACT_ALARM` grant no longer risks a crash.
-- Safer Compose `Color` construction from stored Long values.
-- Stable window theme for ColorOS / Realme splash path.
-- Catalan `values-ca` strings for app name and notification channel.
+Uninstall the previous app before installing this one.
