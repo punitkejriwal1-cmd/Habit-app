@@ -35,6 +35,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
 
       - name: Restore debug keystore
         uses: actions/cache@v4
@@ -56,14 +58,7 @@ jobs:
           fi
 
       - name: Build debug APK
-        run: |
-          chmod +x gradlew || true
-          if [ -f gradlew ]; then
-            ./gradlew assembleDebug --no-daemon --stacktrace
-          else
-            gradle wrapper --gradle-version 8.9
-            ./gradlew assembleDebug --no-daemon --stacktrace
-          fi
+        run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Locate APK
         id: apk
