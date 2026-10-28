@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Revisió d\'horaris</string>
+    <string name="channel_habits">Recordatoris d\'hàbits</string>
+    <string name="channel_habits_desc">Recordatoris permanents fins que marques l\'hàbit</string>
+</resources>

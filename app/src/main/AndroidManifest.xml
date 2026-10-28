@@ -9,25 +9,33 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@drawable/ic_launcher_legacy"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TimetableReview">
+        android:theme="@style/Theme.TimetableReview"
+        android:enableOnBackInvokedCallback="true">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TimetableReview"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notifications.ReminderReceiver" android:exported="false" />
+        <receiver
+            android:name=".notifications.ReminderReceiver"
+            android:exported="false" />
 
-        <receiver android:name=".notifications.BootReceiver" android:exported="true">
+        <receiver
+            android:name=".notifications.BootReceiver"
+            android:exported="true"
+            android:directBootAware="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
