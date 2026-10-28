@@ -30,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.onepercent.habits.data.Habit
 import com.onepercent.habits.data.HabitLog
 import java.time.LocalDate
@@ -55,7 +55,7 @@ fun HomeScreen(
     onOpenStatus: (habitId: String, dateKey: String) -> Unit,
     onSettings: () -> Unit,
 ) {
-    val state by vm.uiState.collectAsState()
+    val state by vm.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -104,7 +104,7 @@ fun HomeScreen(
                     val d = runCatching { LocalDate.parse(key) }.getOrNull()
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(44.dp)) {
                         Text(
-                            d?.dayOfWeek?.getDisplayName(TextStyle.SHORT, Locale.ENGLISH)?.uppercase().orEmpty(),
+                            d?.dayOfWeek?.getDisplayName(TextStyle.SHORT, Locale.getDefault())?.uppercase().orEmpty(),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary,
                         )
@@ -180,15 +180,15 @@ private fun HabitRow(
 @Composable
 private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
     val bg = when (log?.status) {
-        "done" -> Color(0xFF34D399UL)
-        "partial" -> Color(0xFFFBBF24UL)
-        "missed" -> Color(0xFFFB7185UL)
+        "done" -> Color(0xFF34D399)
+        "partial" -> Color(0xFFFBBF24)
+        "missed" -> Color(0xFFFB7185)
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
     val fg = when (log?.status) {
-        "done" -> Color(0xFF052E22UL)
-        "partial" -> Color(0xFF1C1404UL)
-        "missed" -> Color(0xFF2A0A12UL)
+        "done" -> Color(0xFF052E22)
+        "partial" -> Color(0xFF1C1404)
+        "missed" -> Color(0xFF2A0A12)
         else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Box(
