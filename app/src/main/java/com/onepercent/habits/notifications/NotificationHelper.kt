@@ -1,7 +1,6 @@
 package com.onepercent.habits.notifications
 
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.onepercent.habits.MainActivity
 import com.onepercent.habits.R
-import com.onepercent.habits.data.HabitEntity
+import com.onepercent.habits.data.Habit
 import java.util.Calendar
 
 object NotificationHelper {
@@ -26,8 +25,6 @@ object NotificationHelper {
                 NotificationManager.IMPORTANCE_HIGH,
             ).apply {
                 description = context.getString(R.string.channel_habits_desc)
-                setShowBadge(true)
-                lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
             context.getSystemService(NotificationManager::class.java)
                 .createNotificationChannel(channel)
@@ -41,22 +38,18 @@ object NotificationHelper {
         return h and 0x7fffffff
     }
 
-    fun showSticky(context: Context, habit: HabitEntity, dateKey: String) {
+    fun showSticky(context: Context, habit: Habit, dateKey: String) {
         createChannel(context)
         val id = notificationId(habit.id, dateKey)
-
         val open = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra("habitId", habit.id)
             putExtra("dateKey", dateKey)
         }
         val contentPi = PendingIntent.getActivity(
-            context,
-            id,
-            open,
+            context, id, open,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_popup_reminder)
             .setContentTitle(habit.name)
@@ -67,32 +60,24 @@ object NotificationHelper {
             .setAutoCancel(false)
             .setOnlyAlertOnce(true)
             .setContentIntent(contentPi)
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .build()
-
         NotificationManagerCompat.from(context).notify(id, notification)
     }
 
     fun cancel(context: Context, habitId: String, dateKey: String) {
-        NotificationManagerCompat.from(context)
-            .cancel(notificationId(habitId, dateKey))
+        NotificationManagerCompat.from(context).cancel(notificationId(habitId, dateKey))
     }
 
-    fun schedule(context: Context, habit: HabitEntity) {
+    fun schedule(context: Context, habit: Habit) {
         val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val triggerAt = nextTriggerMillis(habit) ?: return
-
         val intent = Intent(context, ReminderReceiver::class.java).apply {
             putExtra("habitId", habit.id)
-            putExtra("habitName", habit.name)
         }
         val pi = PendingIntent.getBroadcast(
-            context,
-            habit.id.hashCode(),
-            intent,
+            context, habit.id.hashCode(), intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
         } else {
@@ -100,7 +85,7 @@ object NotificationHelper {
         }
     }
 
-    fun scheduleAll(context: Context, habits: List<HabitEntity>) {
+    fun scheduleAll(context: Context, habits: List<Habit>) {
         habits.forEach { schedule(context, it) }
     }
 
@@ -108,15 +93,13 @@ object NotificationHelper {
         val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, ReminderReceiver::class.java)
         val pi = PendingIntent.getBroadcast(
-            context,
-            habitId.hashCode(),
-            intent,
+            context, habitId.hashCode(), intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
         am.cancel(pi)
     }
 
-    private fun nextTriggerMillis(habit: HabitEntity): Long? {
+    private fun nextTriggerMillis(habit: Habit): Long? {
         val parts = habit.reminderTime.split(":")
         if (parts.size < 2) return null
         val hour = parts[0].toIntOrNull() ?: return null
@@ -125,7 +108,6 @@ object NotificationHelper {
             .mapNotNull { it.trim().toIntOrNull() }
             .toSet()
             .ifEmpty { (0..6).toSet() }
-
         val now = Calendar.getInstance()
         val candidate = Calendar.getInstance().apply {
             set(Calendar.SECOND, 0)
@@ -133,11 +115,9 @@ object NotificationHelper {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
         }
-
         for (i in 0..7) {
             if (i > 0) candidate.add(Calendar.DAY_OF_YEAR, 1)
-            val dow = candidate.get(Calendar.DAY_OF_WEEK)
-            val ourDow = (dow - 1) % 7
+            val ourDow = (candidate.get(Calendar.DAY_OF_WEEK) - 1) % 7
             if (ourDow in days && candidate.timeInMillis > now.timeInMillis + 2000) {
                 return candidate.timeInMillis
             }

@@ -40,8 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.onepercent.habits.data.HabitEntity
-import com.onepercent.habits.data.LogEntity
+import com.onepercent.habits.data.Habit
+import com.onepercent.habits.data.HabitLog
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -51,7 +51,7 @@ import java.util.Locale
 fun HomeScreen(
     vm: HabitsViewModel,
     onAdd: () -> Unit,
-    onEdit: (HabitEntity) -> Unit,
+    onEdit: (Habit) -> Unit,
     onOpenStatus: (habitId: String, dateKey: String) -> Unit,
     onSettings: () -> Unit,
 ) {
@@ -63,11 +63,7 @@ fun HomeScreen(
             TopAppBar(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            "1%",
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold,
-                        )
+                        Text("1%", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                         Spacer(Modifier.width(6.dp))
                         Text("Habits", fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(8.dp))
@@ -98,46 +94,28 @@ fun HomeScreen(
             }
         },
     ) { padding ->
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(padding),
-        ) {
+        Column(Modifier.fillMaxSize().padding(padding)) {
             Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text("Time", modifier = Modifier.width(56.dp), style = MaterialTheme.typography.labelSmall)
                 Text("Habit", modifier = Modifier.weight(1f), style = MaterialTheme.typography.labelSmall)
                 state.dateKeys.forEach { key ->
                     val d = runCatching { LocalDate.parse(key) }.getOrNull()
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.width(44.dp),
-                    ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(44.dp)) {
                         Text(
-                            d?.dayOfWeek?.getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
-                                ?.uppercase().orEmpty(),
+                            d?.dayOfWeek?.getDisplayName(TextStyle.SHORT, Locale.ENGLISH)?.uppercase().orEmpty(),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.primary,
                         )
-                        Text(
-                            d?.dayOfMonth?.toString().orEmpty(),
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                        )
+                        Text(d?.dayOfMonth?.toString().orEmpty(), style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
                     }
                 }
             }
-
             if (state.habits.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(
-                        "No habits yet. Tap + to add one.",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Text("No habits yet. Tap + to add one.", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             } else {
                 LazyColumn {
@@ -147,7 +125,7 @@ fun HomeScreen(
                             dateKeys = state.dateKeys,
                             logsByKey = state.logsByKey,
                             onEdit = { onEdit(habit) },
-                            onCell = { dateKey -> onOpenStatus(habit.id, dateKey) },
+                            onCell = { onOpenStatus(habit.id, it) },
                         )
                     }
                 }
@@ -158,68 +136,44 @@ fun HomeScreen(
 
 @Composable
 private fun HabitRow(
-    habit: HabitEntity,
+    habit: Habit,
     dateKeys: List<String>,
-    logsByKey: Map<String, Map<String, LogEntity>>,
+    logsByKey: Map<String, Map<String, HabitLog>>,
     onEdit: () -> Unit,
     onCell: (String) -> Unit,
 ) {
     val start = format12(habit.startTime)
     val end = if (habit.endTime.isNotBlank()) format12(habit.endTime) else ""
     val dur = durationLabel(habit.startTime, habit.endTime)
-    val pill = Color(habit.color)
-
     Row(
-        Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onEdit)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+        Modifier.fillMaxWidth().clickable(onClick = onEdit).padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.width(56.dp)) {
             Text(start, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (end.isNotEmpty()) {
-                Text(
-                    end,
-                    fontSize = 11.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-                )
+                Text(end, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f))
             }
         }
         Column(Modifier.weight(1f)) {
             Box(
-                Modifier
-                    .clip(RoundedCornerShape(50))
-                    .background(pill)
+                Modifier.clip(RoundedCornerShape(50)).background(Color(habit.color))
                     .padding(horizontal = 12.dp, vertical = 6.dp),
             ) {
-                Text(
-                    habit.name,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                Text(habit.name, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             if (dur.isNotEmpty()) {
-                Text(
-                    dur,
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp, start = 4.dp),
-                )
+                Text(dur, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp, start = 4.dp))
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            dateKeys.forEach { key ->
-                StatusCell(logsByKey[key]?.get(habit.id)) { onCell(key) }
-            }
+            dateKeys.forEach { key -> StatusCell(logsByKey[key]?.get(habit.id)) { onCell(key) } }
         }
     }
 }
 
 @Composable
-private fun StatusCell(log: LogEntity?, onClick: () -> Unit) {
+private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
     val bg = when (log?.status) {
         "done" -> Color(0xFF34D399L)
         "partial" -> Color(0xFFFBBF24L)
@@ -233,22 +187,13 @@ private fun StatusCell(log: LogEntity?, onClick: () -> Unit) {
         else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Box(
-        Modifier
-            .size(40.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(bg)
-            .clickable(onClick = onClick),
+        Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)).background(bg).clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
         when (log?.status) {
             "done" -> Icon(Icons.Default.Check, null, tint = fg, modifier = Modifier.size(18.dp))
             "missed" -> Icon(Icons.Default.Close, null, tint = fg, modifier = Modifier.size(18.dp))
-            "partial" -> Text(
-                "${log.partialPct.coerceAtLeast(10)}%",
-                color = fg,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-            )
+            "partial" -> Text("${log.partialPct.coerceAtLeast(10)}%", color = fg, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             else -> Text("·", color = fg)
         }
     }

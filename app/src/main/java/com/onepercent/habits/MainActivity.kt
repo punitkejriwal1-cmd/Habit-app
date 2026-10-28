@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
@@ -14,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
-import com.onepercent.habits.data.HabitEntity
+import com.onepercent.habits.data.Habit
 import com.onepercent.habits.ui.HabitEditorScreen
 import com.onepercent.habits.ui.HabitsViewModel
 import com.onepercent.habits.ui.HomeScreen
@@ -27,11 +26,10 @@ class MainActivity : ComponentActivity() {
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
-    ) { /* granted or not */ }
+    ) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         requestNotifPermission()
         vm.refreshAlarms()
 
@@ -83,19 +81,18 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun requestNotifPermission() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }
 
 private sealed class Screen {
     data object Home : Screen()
-    data class Edit(val habit: HabitEntity?) : Screen()
+    data class Edit(val habit: Habit?) : Screen()
     data class Status(val habitId: String, val dateKey: String) : Screen()
     data object Settings : Screen()
 }

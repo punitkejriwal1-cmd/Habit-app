@@ -4,19 +4,18 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercent.habits.HabitsApp
-import com.onepercent.habits.data.HabitEntity
+import com.onepercent.habits.data.Habit
+import com.onepercent.habits.data.HabitLog
 import com.onepercent.habits.data.HabitRepository
-import com.onepercent.habits.data.LogEntity
 import com.onepercent.habits.notifications.NotificationHelper
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 data class HomeUiState(
-    val habits: List<HabitEntity> = emptyList(),
-    val logsByKey: Map<String, Map<String, LogEntity>> = emptyMap(),
+    val habits: List<Habit> = emptyList(),
+    val logsByKey: Map<String, Map<String, HabitLog>> = emptyMap(),
     val dateKeys: List<String> = listOf(
         HabitRepository.dateKey(0),
         HabitRepository.dateKey(-1),
@@ -32,11 +31,8 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
         HabitRepository.dateKey(-1),
     )
 
-    val uiState = combine(
-        repo.observeHabits(),
-        repo.observeLogs(dateKeys),
-    ) { habits, logs ->
-        val map = mutableMapOf<String, MutableMap<String, LogEntity>>()
+    val uiState = combine(repo.habits, repo.logs) { habits, logs ->
+        val map = mutableMapOf<String, MutableMap<String, HabitLog>>()
         logs.forEach { log ->
             map.getOrPut(log.dateKey) { mutableMapOf() }[log.habitId] = log
         }
@@ -44,9 +40,7 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     fun refreshAlarms() {
-        viewModelScope.launch {
-            NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
-        }
+        NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
     }
 
     fun saveHabit(
@@ -59,58 +53,38 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
         reminderDays: String,
         color: Long,
     ) {
-        viewModelScope.launch {
-            val entity = HabitEntity(
-                id = id ?: UUID.randomUUID().toString(),
-                name = name.trim(),
-                question = question.trim(),
-                startTime = startTime,
-                endTime = endTime,
-                reminderTime = reminderTime,
-                reminderDays = reminderDays,
-                color = color,
-            )
-            repo.upsertHabit(entity)
-            NotificationHelper.schedule(ctx, entity)
-        }
+        val entity = Habit(
+            id = id ?: HabitRepository.newId(),
+            name = name.trim(),
+            question = question.trim(),
+            startTime = startTime,
+            endTime = endTime,
+            reminderTime = reminderTime,
+            reminderDays = reminderDays,
+            color = color,
+        )
+        repo.saveHabit(entity)
+        NotificationHelper.schedule(ctx, entity)
     }
 
     fun deleteHabit(id: String) {
-        viewModelScope.launch {
-            NotificationHelper.cancelSchedule(ctx, id)
-            NotificationHelper.cancel(ctx, id, HabitRepository.dateKey(0))
-            repo.deleteHabit(id)
-        }
+        NotificationHelper.cancelSchedule(ctx, id)
+        NotificationHelper.cancel(ctx, id, HabitRepository.dateKey(0))
+        repo.deleteHabit(id)
     }
 
-    fun mark(
-        habitId: String,
-        dateKey: String,
-        status: String,
-        partialPct: Int = 0,
-    ) {
-        viewModelScope.launch {
-            repo.setLog(
-                LogEntity(
-                    dateKey = dateKey,
-                    habitId = habitId,
-                    status = status,
-                    partialPct = partialPct,
-                ),
-            )
-            if (dateKey == HabitRepository.dateKey(0)) {
-                NotificationHelper.cancel(ctx, habitId, dateKey)
-            }
+    fun mark(habitId: String, dateKey: String, status: String, partialPct: Int = 0) {
+        repo.setLog(HabitLog(dateKey, habitId, status, partialPct))
+        if (dateKey == HabitRepository.dateKey(0)) {
+            NotificationHelper.cancel(ctx, habitId, dateKey)
         }
     }
 
     fun clearMark(habitId: String, dateKey: String) {
-        viewModelScope.launch {
-            repo.clearLog(dateKey, habitId)
-        }
+        repo.clearLog(dateKey, habitId)
     }
 
-    suspend fun exportJson(): String = repo.exportJson()
+    fun exportJson(): String = repo.exportJson()
 
     fun importJson(raw: String, onDone: (Boolean) -> Unit) {
         viewModelScope.launch {

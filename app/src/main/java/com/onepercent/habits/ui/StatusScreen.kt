@@ -38,7 +38,6 @@ fun StatusScreen(
     val state by vm.uiState.collectAsState()
     val habit = state.habits.find { it.id == habitId }
     val existing = state.logsByKey[dateKey]?.get(habitId)
-
     var status by remember { mutableStateOf(existing?.status) }
     var pct by remember { mutableFloatStateOf((existing?.partialPct ?: 50).toFloat()) }
 
@@ -54,75 +53,24 @@ fun StatusScreen(
             )
         },
     ) { padding ->
-        Column(
-            Modifier
-                .padding(padding)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
+        Column(Modifier.padding(padding).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(dateKey)
-            if (!habit?.question.isNullOrBlank()) {
-                Text(habit!!.question)
-            }
-
+            if (!habit?.question.isNullOrBlank()) Text(habit!!.question)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilterChip(
-                    selected = status == "done",
-                    onClick = {
-                        status = "done"
-                        vm.mark(habitId, dateKey, "done")
-                        onClose()
-                    },
-                    label = { Text("Done") },
-                )
-                FilterChip(
-                    selected = status == "partial",
-                    onClick = { status = "partial" },
-                    label = { Text("Partial") },
-                )
-                FilterChip(
-                    selected = status == "missed",
-                    onClick = { status = "missed" },
-                    label = { Text("Missed") },
-                )
+                FilterChip(selected = status == "done", onClick = { status = "done"; vm.mark(habitId, dateKey, "done"); onClose() }, label = { Text("Done") })
+                FilterChip(selected = status == "partial", onClick = { status = "partial" }, label = { Text("Partial") })
+                FilterChip(selected = status == "missed", onClick = { status = "missed" }, label = { Text("Missed") })
             }
-
             if (status == "partial") {
                 Text("Completion ${pct.toInt()}%")
-                Slider(
-                    value = pct,
-                    onValueChange = { pct = it },
-                    valueRange = 10f..90f,
-                    steps = 7,
-                )
+                Slider(value = pct, onValueChange = { pct = it }, valueRange = 10f..90f, steps = 7)
             }
-
             if (status == "partial" || status == "missed") {
-                Button(
-                    onClick = {
-                        vm.mark(
-                            habitId,
-                            dateKey,
-                            status!!,
-                            partialPct = if (status == "partial") pct.toInt() else 0,
-                        )
-                        onClose()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
+                Button(onClick = { vm.mark(habitId, dateKey, status!!, if (status == "partial") pct.toInt() else 0); onClose() }, modifier = Modifier.fillMaxWidth()) {
                     Text("Save")
                 }
             }
-
-            OutlinedButton(
-                onClick = {
-                    vm.clearMark(habitId, dateKey)
-                    onClose()
-                },
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("Clear")
-            }
+            OutlinedButton(onClick = { vm.clearMark(habitId, dateKey); onClose() }, modifier = Modifier.fillMaxWidth()) { Text("Clear") }
         }
     }
 }

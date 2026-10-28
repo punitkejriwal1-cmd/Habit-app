@@ -30,7 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.onepercent.habits.data.HabitEntity
+import com.onepercent.habits.data.Habit
 
 private val DAY_LABELS = listOf("S", "M", "T", "W", "T", "F", "S")
 private val COLORS = listOf(
@@ -41,17 +41,8 @@ private val COLORS = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitEditorScreen(
-    existing: HabitEntity?,
-    onSave: (
-        id: String?,
-        name: String,
-        question: String,
-        startTime: String,
-        endTime: String,
-        reminderTime: String,
-        reminderDays: String,
-        color: Long,
-    ) -> Unit,
+    existing: Habit?,
+    onSave: (String?, String, String, String, String, String, String, Long) -> Unit,
     onDelete: (String) -> Unit,
     onClose: () -> Unit,
 ) {
@@ -62,10 +53,7 @@ fun HabitEditorScreen(
     var remind by remember { mutableStateOf(existing?.reminderTime ?: "09:00") }
     var days by remember {
         mutableStateOf(
-            existing?.reminderDays
-                ?.split(",")
-                ?.mapNotNull { it.trim().toIntOrNull() }
-                ?.toSet()
+            existing?.reminderDays?.split(",")?.mapNotNull { it.trim().toIntOrNull() }?.toSet()
                 ?: (0..6).toSet(),
         )
     }
@@ -84,105 +72,40 @@ fun HabitEditorScreen(
         },
     ) { padding ->
         Column(
-            Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
+            Modifier.fillMaxSize().padding(padding).padding(16.dp).verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text("Name") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            OutlinedTextField(
-                value = question,
-                onValueChange = { question = it },
-                label = { Text("Question (optional)") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
+            OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text("Name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = question, onValueChange = { question = it }, label = { Text("Question (optional)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
             Text("Session time (display only)", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(
-                    value = start,
-                    onValueChange = { start = it },
-                    label = { Text("Starts (HH:mm)") },
-                    singleLine = true,
-                    modifier = Modifier.weight(1f),
-                )
-                OutlinedTextField(
-                    value = end,
-                    onValueChange = { end = it },
-                    label = { Text("Ends (HH:mm)") },
-                    singleLine = true,
-                    modifier = Modifier.weight(1f),
-                )
+                OutlinedTextField(value = start, onValueChange = { start = it }, label = { Text("Starts (HH:mm)") }, singleLine = true, modifier = Modifier.weight(1f))
+                OutlinedTextField(value = end, onValueChange = { end = it }, label = { Text("Ends (HH:mm)") }, singleLine = true, modifier = Modifier.weight(1f))
             }
-
             Text("Reminder", style = MaterialTheme.typography.labelLarge)
-            OutlinedTextField(
-                value = remind,
-                onValueChange = { remind = it },
-                label = { Text("Remind me at (HH:mm)") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                supportingText = { Text("Any time — start, middle, or end of the session") },
-            )
-
+            OutlinedTextField(value = remind, onValueChange = { remind = it }, label = { Text("Remind me at (HH:mm)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
             Text("Reminder days", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 DAY_LABELS.forEachIndexed { i, label ->
-                    FilterChip(
-                        selected = i in days,
-                        onClick = { days = if (i in days) days - i else days + i },
-                        label = { Text(label) },
-                    )
+                    FilterChip(selected = i in days, onClick = { days = if (i in days) days - i else days + i }, label = { Text(label) })
                 }
             }
-
             Text("Color", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 COLORS.forEach { c ->
-                    FilterChip(
-                        selected = color == c,
-                        onClick = { color = c },
-                        label = { Text("●") },
-                    )
+                    FilterChip(selected = color == c, onClick = { color = c }, label = { Text("●") })
                 }
             }
-
             Spacer(Modifier.height(8.dp))
             Button(
                 onClick = {
                     if (name.isBlank()) return@Button
-                    onSave(
-                        existing?.id,
-                        name,
-                        question,
-                        start.ifBlank { "09:00" },
-                        end,
-                        remind.ifBlank { start.ifBlank { "09:00" } },
-                        days.sorted().joinToString(","),
-                        color,
-                    )
+                    onSave(existing?.id, name, question, start.ifBlank { "09:00" }, end, remind.ifBlank { start }, days.sorted().joinToString(","), color)
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("Save habit")
-            }
-
+            ) { Text("Save habit") }
             if (existing != null) {
-                OutlinedButton(
-                    onClick = { onDelete(existing.id) },
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Delete")
-                }
+                OutlinedButton(onClick = { onDelete(existing.id) }, modifier = Modifier.fillMaxWidth()) { Text("Delete") }
             }
         }
     }

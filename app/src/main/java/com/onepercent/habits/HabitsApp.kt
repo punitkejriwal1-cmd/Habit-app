@@ -1,7 +1,6 @@
 package com.onepercent.habits
 
 import android.app.Application
-import com.onepercent.habits.data.AppDatabase
 import com.onepercent.habits.data.HabitRepository
 import com.onepercent.habits.notifications.NotificationHelper
 
@@ -11,8 +10,7 @@ class HabitsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val db = AppDatabase.get(this)
-        repository = HabitRepository(db.habitDao(), db.logDao())
+        repository = HabitRepository(this)
         NotificationHelper.createChannel(this)
     }
 }
