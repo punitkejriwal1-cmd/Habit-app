@@ -2,5 +2,5 @@ package com.onepercent.habits
 
 import android.app.Application
 
-/** Empty application class kept only so old references do not break. */
+/** Not used in manifest; kept so old class references do not break tooling. */
 class HabitsApp : Application()

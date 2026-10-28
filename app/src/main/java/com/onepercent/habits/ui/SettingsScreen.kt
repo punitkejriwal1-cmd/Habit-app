@@ -46,7 +46,9 @@ fun SettingsScreen(
         if (uri == null) return@rememberLauncherForActivityResult
         try {
             val text = context.contentResolver.openInputStream(uri)?.bufferedReader()?.readText()
-            if (text != null) vm.importJson(text) { ok -> message = if (ok) "Import successful" else "Import failed" }
+            if (text != null) {
+                vm.importJson(text) { ok -> message = if (ok) "Import successful" else "Import failed" }
+            }
         } catch (_: Exception) {
             message = "Import failed"
         }
@@ -76,15 +78,19 @@ fun SettingsScreen(
                 onClick = {
                     try {
                         val json = vm.exportJson()
-                        val file = File(context.cacheDir, "1percent-habits-backup.json")
+                        val file = File(context.cacheDir, "timetable-review-backup.json")
                         file.writeText(json)
-                        val uri = FileProvider.getUriForFile(context, context.packageName + ".fileprovider", file)
+                        val uri = FileProvider.getUriForFile(
+                            context,
+                            context.packageName + ".fileprovider",
+                            file,
+                        )
                         val share = Intent(Intent.ACTION_SEND).apply {
                             type = "application/json"
                             putExtra(Intent.EXTRA_STREAM, uri)
                             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         }
-                        context.startActivity(Intent.createChooser(share, "Save habits backup"))
+                        context.startActivity(Intent.createChooser(share, "Save backup"))
                         message = "Share sheet opened"
                     } catch (_: Exception) {
                         message = "Export failed"

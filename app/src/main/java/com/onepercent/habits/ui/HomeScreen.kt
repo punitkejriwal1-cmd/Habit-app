@@ -63,9 +63,7 @@ fun HomeScreen(
             TopAppBar(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("1%", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
-                        Spacer(Modifier.width(6.dp))
-                        Text("Habits", fontWeight = FontWeight.ExtraBold)
+                        Text("Timetable", fontWeight = FontWeight.ExtraBold)
                         Spacer(Modifier.width(8.dp))
                         val todayKey = state.dateKeys.firstOrNull().orEmpty()
                         val done = state.habits.count { h ->
@@ -91,7 +89,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onAdd) {
-                Icon(Icons.Default.Add, contentDescription = "Add habit")
+                Icon(Icons.Default.Add, contentDescription = "Add")
             }
         },
     ) { padding ->
@@ -163,24 +161,12 @@ private fun HabitRow(
         }
         Column(Modifier.weight(1f)) {
             Box(
-                Modifier.clip(RoundedCornerShape(50)).background(pill)
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                Modifier.clip(RoundedCornerShape(50)).background(pill).padding(horizontal = 12.dp, vertical = 6.dp),
             ) {
-                Text(
-                    habit.name,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                Text(habit.name, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             if (dur.isNotEmpty()) {
-                Text(
-                    dur,
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 4.dp, start = 4.dp),
-                )
+                Text(dur, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp, start = 4.dp))
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -212,12 +198,7 @@ private fun StatusCell(log: HabitLog?, onClick: () -> Unit) {
         when (log?.status) {
             "done" -> Icon(Icons.Default.Check, null, tint = fg, modifier = Modifier.size(18.dp))
             "missed" -> Icon(Icons.Default.Close, null, tint = fg, modifier = Modifier.size(18.dp))
-            "partial" -> Text(
-                "${log.partialPct.coerceAtLeast(10)}%",
-                color = fg,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-            )
+            "partial" -> Text("${log.partialPct.coerceAtLeast(10)}%", color = fg, fontSize = 11.sp, fontWeight = FontWeight.Bold)
             else -> Text(".", color = fg)
         }
     }

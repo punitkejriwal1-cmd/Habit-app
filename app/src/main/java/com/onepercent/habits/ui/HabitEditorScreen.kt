@@ -34,14 +34,8 @@ import com.onepercent.habits.data.Habit
 
 private val DAY_LABELS = listOf("S", "M", "T", "W", "T", "F", "S")
 private val COLORS = listOf(
-    0xFF3B82F6L,
-    0xFFEC4899L,
-    0xFFA78B6DL,
-    0xFF22C55EL,
-    0xFF64748BL,
-    0xFF8B5CF6L,
-    0xFFF59E0BL,
-    0xFF06B6D4L,
+    0xFF3B82F6L, 0xFFEC4899L, 0xFFA78B6DL, 0xFF22C55EL,
+    0xFF64748BL, 0xFF8B5CF6L, 0xFFF59E0BL, 0xFF06B6D4L,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,12 +100,23 @@ fun HabitEditorScreen(
             Button(
                 onClick = {
                     if (name.isBlank()) return@Button
-                    onSave(existing?.id, name, question, start.ifBlank { "09:00" }, end, remind.ifBlank { start }, days.sorted().joinToString(","), color)
+                    onSave(
+                        existing?.id,
+                        name,
+                        question,
+                        start.ifBlank { "09:00" },
+                        end,
+                        remind.ifBlank { start.ifBlank { "09:00" } },
+                        days.sorted().joinToString(","),
+                        color,
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
             ) { Text("Save habit") }
             if (existing != null) {
-                OutlinedButton(onClick = { onDelete(existing.id) }, modifier = Modifier.fillMaxWidth()) { Text("Delete") }
+                OutlinedButton(onClick = { onDelete(existing.id) }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Delete")
+                }
             }
         }
     }

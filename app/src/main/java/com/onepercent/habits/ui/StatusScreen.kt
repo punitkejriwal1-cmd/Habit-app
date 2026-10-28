@@ -81,12 +81,7 @@ fun StatusScreen(
             }
             if (status == "partial") {
                 Text("Completion ${pct.toInt()}%")
-                Slider(
-                    value = pct,
-                    onValueChange = { pct = it },
-                    valueRange = 10f..90f,
-                    steps = 7,
-                )
+                Slider(value = pct, onValueChange = { pct = it }, valueRange = 10f..90f, steps = 7)
             }
             if (status == "partial" || status == "missed") {
                 Button(
@@ -96,9 +91,7 @@ fun StatusScreen(
                         onClose()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Save")
-                }
+                ) { Text("Save") }
             }
             OutlinedButton(
                 onClick = {
@@ -106,9 +99,7 @@ fun StatusScreen(
                     onClose()
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text("Clear")
-            }
+            ) { Text("Clear") }
         }
     }
 }
