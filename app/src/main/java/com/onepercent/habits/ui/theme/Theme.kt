@@ -7,31 +7,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val OledDark = darkColorScheme(
-    primary = Color(0xFF818CF8),
-    onPrimary = Color(0xFF0F1020),
-    secondary = Color(0xFFFBBF24),
-    background = Color(0xFF000000),
-    surface = Color(0xFF000000),
-    surfaceVariant = Color(0xFF111111),
-    onBackground = Color(0xFFF5F5F4),
-    onSurface = Color(0xFFF5F5F4),
-    onSurfaceVariant = Color(0xFFA3A3A3),
-    outline = Color(0xFF1A1A1A),
-    error = Color(0xFFFB7185),
+    primary = Color(0xFF818CF8L),
+    onPrimary = Color(0xFF0F1020L),
+    secondary = Color(0xFFFBBF24L),
+    background = Color(0xFF000000L),
+    surface = Color(0xFF000000L),
+    surfaceVariant = Color(0xFF111111L),
+    onBackground = Color(0xFFF5F5F4L),
+    onSurface = Color(0xFFF5F5F4L),
+    onSurfaceVariant = Color(0xFFA3A3A3L),
+    outline = Color(0xFF1A1A1AL),
+    error = Color(0xFFFB7185L),
 )
 
 private val Light = lightColorScheme(
-    primary = Color(0xFF3730A3),
-    onPrimary = Color(0xFFF8FAFC),
-    secondary = Color(0xFFB45309),
-    background = Color(0xFFE7E5E0),
-    surface = Color(0xFFF6F5F2),
-    surfaceVariant = Color(0xFFEFECE6),
-    onBackground = Color(0xFF1C1917),
-    onSurface = Color(0xFF1C1917),
-    onSurfaceVariant = Color(0xFF78716C),
-    outline = Color(0xFFE3DFD6),
-    error = Color(0xFFBE123C),
+    primary = Color(0xFF3730A3L),
+    onPrimary = Color(0xFFF8FAFCL),
+    secondary = Color(0xFFB45309L),
+    background = Color(0xFFE7E5E0L),
+    surface = Color(0xFFF6F5F2L),
+    surfaceVariant = Color(0xFFEFECE6L),
+    onBackground = Color(0xFF1C1917L),
+    onSurface = Color(0xFF1C1917L),
+    onSurfaceVariant = Color(0xFF78716CL),
+    outline = Color(0xFFE3DFD6L),
+    error = Color(0xFFBE123CL),
 )
 
 @Composable
