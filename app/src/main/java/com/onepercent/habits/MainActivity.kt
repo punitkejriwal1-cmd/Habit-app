@@ -9,15 +9,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.onepercent.habits.data.Habit
 import com.onepercent.habits.ui.HabitEditorScreen
@@ -34,7 +29,6 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         Log.d(TAG, "Notification permission granted=$granted")
-        // Do not call anything that can crash after the dialog
         try {
             vm.refreshAlarms()
         } catch (t: Throwable) {
@@ -44,6 +38,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         try {
             requestNotifPermission()
         } catch (t: Throwable) {
@@ -53,60 +48,48 @@ class MainActivity : ComponentActivity() {
         setContent {
             var dark by remember { mutableStateOf(true) }
             var screen by remember { mutableStateOf<Screen>(Screen.Home) }
-            var error by remember { mutableStateOf<String?>(null) }
 
             OnePercentTheme(darkTheme = dark) {
-                if (error != null) {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("Startup error: $error")
-                    }
-                } else {
-                    try {
-                        when (val s = screen) {
-                            Screen.Home -> HomeScreen(
-                                vm = vm,
-                                onAdd = { screen = Screen.Edit(null) },
-                                onEdit = { screen = Screen.Edit(it) },
-                                onOpenStatus = { id, date -> screen = Screen.Status(id, date) },
-                                onSettings = { screen = Screen.Settings },
-                            )
-                            is Screen.Edit -> HabitEditorScreen(
-                                existing = s.habit,
-                                onSave = { id, name, q, start, end, remind, days, color ->
-                                    try {
-                                        vm.saveHabit(id, name, q, start, end, remind, days, color)
-                                    } catch (t: Throwable) {
-                                        Log.e(TAG, "saveHabit", t)
-                                    }
-                                    screen = Screen.Home
-                                },
-                                onDelete = { id ->
-                                    try {
-                                        vm.deleteHabit(id)
-                                    } catch (t: Throwable) {
-                                        Log.e(TAG, "deleteHabit", t)
-                                    }
-                                    screen = Screen.Home
-                                },
-                                onClose = { screen = Screen.Home },
-                            )
-                            is Screen.Status -> StatusScreen(
-                                habitId = s.habitId,
-                                dateKey = s.dateKey,
-                                vm = vm,
-                                onClose = { screen = Screen.Home },
-                            )
-                            Screen.Settings -> SettingsScreen(
-                                dark = dark,
-                                onToggleDark = { dark = it },
-                                vm = vm,
-                                onClose = { screen = Screen.Home },
-                            )
-                        }
-                    } catch (t: Throwable) {
-                        Log.e(TAG, "compose crash", t)
-                        error = t.message ?: t.javaClass.simpleName
-                    }
+                when (val s = screen) {
+                    Screen.Home -> HomeScreen(
+                        vm = vm,
+                        onAdd = { screen = Screen.Edit(null) },
+                        onEdit = { screen = Screen.Edit(it) },
+                        onOpenStatus = { id, date -> screen = Screen.Status(id, date) },
+                        onSettings = { screen = Screen.Settings },
+                    )
+                    is Screen.Edit -> HabitEditorScreen(
+                        existing = s.habit,
+                        onSave = { id, name, q, start, end, remind, days, color ->
+                            try {
+                                vm.saveHabit(id, name, q, start, end, remind, days, color)
+                            } catch (t: Throwable) {
+                                Log.e(TAG, "saveHabit", t)
+                            }
+                            screen = Screen.Home
+                        },
+                        onDelete = { id ->
+                            try {
+                                vm.deleteHabit(id)
+                            } catch (t: Throwable) {
+                                Log.e(TAG, "deleteHabit", t)
+                            }
+                            screen = Screen.Home
+                        },
+                        onClose = { screen = Screen.Home },
+                    )
+                    is Screen.Status -> StatusScreen(
+                        habitId = s.habitId,
+                        dateKey = s.dateKey,
+                        vm = vm,
+                        onClose = { screen = Screen.Home },
+                    )
+                    Screen.Settings -> SettingsScreen(
+                        dark = dark,
+                        onToggleDark = { dark = it },
+                        vm = vm,
+                        onClose = { screen = Screen.Home },
+                    )
                 }
             }
         }
