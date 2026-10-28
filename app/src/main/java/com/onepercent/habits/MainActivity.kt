@@ -1,154 +1,68 @@
 package com.onepercent.habits
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.graphics.Color as AndroidColor
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import com.onepercent.habits.data.Habit
-import com.onepercent.habits.ui.HabitEditorScreen
-import com.onepercent.habits.ui.HabitsViewModel
-import com.onepercent.habits.ui.HomeScreen
-import com.onepercent.habits.ui.SettingsScreen
-import com.onepercent.habits.ui.StatusScreen
-import com.onepercent.habits.ui.theme.AppTheme
+import androidx.compose.ui.unit.sp
 
+/**
+ * Compose-only diagnostic: no ViewModel, no icons, no navigation, no receivers.
+ * If this crashes → Compose/Material3 itself is the problem on this device.
+ * If this shows OK → next we add ViewModel carefully.
+ */
 class MainActivity : ComponentActivity() {
-
-    private val vm: HabitsViewModel by viewModels()
-
-    private val permissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) {
-        try {
-            vm.refreshAlarms()
-        } catch (t: Throwable) {
-            Log.e(TAG, "after permission", t)
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         try {
             setContent {
-                AppRoot(
-                    vm = vm,
-                    onRequestNotif = { requestNotifPermission() },
-                )
-            }
-
-            window.decorView.post {
-                try {
-                    requestNotifPermission()
-                    vm.refreshAlarms()
-                } catch (t: Throwable) {
-                    Log.e(TAG, "post start", t)
+                MaterialTheme(colorScheme = darkColorScheme()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Black)
+                            .padding(24.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = "v1.1.5-compose-diag OK\n\nCompose works on this phone.",
+                            color = Color.White,
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
             }
+            Log.i(TAG, "Compose diag opened")
         } catch (t: Throwable) {
-            Log.e(TAG, "onCreate fatal", t)
-            val tv = TextView(this).apply {
-                text = "Failed to start UI:\n\n${t.javaClass.simpleName}\n${t.message}\n\nSee logcat: TimetableReview"
-                setTextColor(AndroidColor.WHITE)
-                setBackgroundColor(AndroidColor.BLACK)
-                setPadding(48, 48, 48, 48)
-                textSize = 14f
-            }
-            setContentView(tv)
-        }
-    }
-
-    private fun requestNotifPermission() {
-        if (Build.VERSION.SDK_INT >= 33 &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            Log.e(TAG, "Compose diag failed", t)
+            setContentView(
+                TextView(this).apply {
+                    text = "Compose failed:\n${t.javaClass.name}\n${t.message}"
+                    setTextColor(AndroidColor.RED)
+                    setBackgroundColor(AndroidColor.BLACK)
+                    setPadding(48, 48, 48, 48)
+                    textSize = 14f
+                },
+            )
         }
     }
 
     companion object {
         private const val TAG = "TimetableReview"
     }
-}
-
-@Composable
-private fun AppRoot(
-    vm: HabitsViewModel,
-    onRequestNotif: () -> Unit,
-) {
-    var dark by remember { mutableStateOf(true) }
-    var screen by remember { mutableStateOf<Screen>(Screen.Home) }
-
-    AppTheme(darkTheme = dark) {
-        when (val s = screen) {
-            Screen.Home -> HomeScreen(
-                vm = vm,
-                onAdd = { screen = Screen.Edit(null) },
-                onEdit = { screen = Screen.Edit(it) },
-                onOpenStatus = { id, date -> screen = Screen.Status(id, date) },
-                onSettings = { screen = Screen.Settings },
-            )
-            is Screen.Edit -> HabitEditorScreen(
-                existing = s.habit,
-                onSave = { id, name, q, start, end, remind, days, color ->
-                    try {
-                        vm.saveHabit(id, name, q, start, end, remind, days, color)
-                    } catch (t: Throwable) {
-                        Log.e("TimetableReview", "save", t)
-                    }
-                    screen = Screen.Home
-                },
-                onDelete = { id ->
-                    try {
-                        vm.deleteHabit(id)
-                    } catch (t: Throwable) {
-                        Log.e("TimetableReview", "delete", t)
-                    }
-                    screen = Screen.Home
-                },
-                onClose = { screen = Screen.Home },
-            )
-            is Screen.Status -> StatusScreen(
-                habitId = s.habitId,
-                dateKey = s.dateKey,
-                vm = vm,
-                onClose = { screen = Screen.Home },
-            )
-            Screen.Settings -> SettingsScreen(
-                dark = dark,
-                onToggleDark = { dark = it },
-                vm = vm,
-                onClose = { screen = Screen.Home },
-            )
-        }
-    }
-}
-
-private sealed class Screen {
-    data object Home : Screen()
-    data class Edit(val habit: Habit?) : Screen()
-    data class Status(val habitId: String, val dateKey: String) : Screen()
-    data object Settings : Screen()
 }

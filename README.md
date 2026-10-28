@@ -1,12 +1,15 @@
-# Timetable Review v1.1.4
+# v1.1.5-compose-diag
 
-Full Compose UI restored after the diagnostic build confirmed the device can open the app.
+Minimal **Compose-only** test (no ViewModel, no icons, no alarms).
 
-## Download
+## Expected screen
 
-GitHub → **Actions** → latest green **Android APK** → artifact **one-percent-habits-native**
+```
+v1.1.5-compose-diag OK
 
-1. Uninstall the previous version first.
-2. Install the new APK.
-3. Allow notifications if asked.
-4. Realme/OPPO/Xiaomi: **Settings → Apps → Timetable Review → Battery → No restrictions**
+Compose works on this phone.
+```
+
+Reply to Grok:
+- **Shows OK** → Compose is fine; crash was ViewModel/full UI
+- **Still crashes** → Compose/Material3 issue on this device (need phone model + Android version)
