@@ -90,10 +90,16 @@ object NotificationHelper {
                 context, habit.id.hashCode(), intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Android 12+ may deny exact alarms; fall back to inexact to avoid SecurityException crash
+            val canExact = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                try { am.canScheduleExactAlarms() } catch (_: Throwable) { false }
+            } else true
+            if (canExact && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
             } else {
-                am.setExact(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+                am.set(AlarmManager.RTC_WAKEUP, triggerAt, pi)
             }
         } catch (t: Throwable) {
             Log.e(TAG, "schedule", t)
