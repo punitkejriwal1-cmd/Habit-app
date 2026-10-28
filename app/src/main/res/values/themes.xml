@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.TimetableReview" parent="android:Theme.Material.NoActionBar">
+    <!-- AppCompat base avoids OEM crashes that pure android:Theme.Material can trigger -->
+    <style name="Theme.TimetableReview" parent="Theme.AppCompat.NoActionBar">
         <item name="android:statusBarColor">#000000</item>
         <item name="android:navigationBarColor">#000000</item>
         <item name="android:windowBackground">#000000</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:colorPrimary">#818CF8</item>
-        <item name="android:colorPrimaryDark">#000000</item>
-        <item name="android:colorAccent">#818CF8</item>
+        <item name="colorPrimary">#818CF8</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#818CF8</item>
     </style>
 </resources>
