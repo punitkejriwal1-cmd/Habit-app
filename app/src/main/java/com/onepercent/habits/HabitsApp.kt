@@ -10,7 +10,13 @@ class HabitsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        repository = HabitRepository(this)
-        NotificationHelper.createChannel(this)
+        try {
+            repository = HabitRepository(this)
+            NotificationHelper.createChannel(this)
+        } catch (t: Throwable) {
+            // Never crash the whole process during Application start
+            t.printStackTrace()
+            repository = HabitRepository(this)
+        }
     }
 }

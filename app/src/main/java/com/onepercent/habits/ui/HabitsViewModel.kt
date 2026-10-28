@@ -1,6 +1,7 @@
 package com.onepercent.habits.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.onepercent.habits.HabitsApp
@@ -23,7 +24,12 @@ data class HomeUiState(
 )
 
 class HabitsViewModel(app: Application) : AndroidViewModel(app) {
-    private val repo = (app as HabitsApp).repository
+    private val repo: HabitRepository = try {
+        (app as HabitsApp).repository
+    } catch (t: Throwable) {
+        Log.e(TAG, "repository fallback", t)
+        HabitRepository(app)
+    }
     private val ctx = app.applicationContext
 
     private val dateKeys = listOf(
@@ -37,10 +43,14 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
             map.getOrPut(log.dateKey) { mutableMapOf() }[log.habitId] = log
         }
         HomeUiState(habits = habits, logsByKey = map, dateKeys = dateKeys)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, HomeUiState())
 
     fun refreshAlarms() {
-        NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
+        try {
+            NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
+        } catch (t: Throwable) {
+            Log.e(TAG, "refreshAlarms", t)
+        }
     }
 
     fun saveHabit(
@@ -64,19 +74,31 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
             color = color,
         )
         repo.saveHabit(entity)
-        NotificationHelper.schedule(ctx, entity)
+        try {
+            NotificationHelper.schedule(ctx, entity)
+        } catch (t: Throwable) {
+            Log.e(TAG, "schedule", t)
+        }
     }
 
     fun deleteHabit(id: String) {
-        NotificationHelper.cancelSchedule(ctx, id)
-        NotificationHelper.cancel(ctx, id, HabitRepository.dateKey(0))
+        try {
+            NotificationHelper.cancelSchedule(ctx, id)
+            NotificationHelper.cancel(ctx, id, HabitRepository.dateKey(0))
+        } catch (t: Throwable) {
+            Log.e(TAG, "cancel", t)
+        }
         repo.deleteHabit(id)
     }
 
     fun mark(habitId: String, dateKey: String, status: String, partialPct: Int = 0) {
         repo.setLog(HabitLog(dateKey, habitId, status, partialPct))
         if (dateKey == HabitRepository.dateKey(0)) {
-            NotificationHelper.cancel(ctx, habitId, dateKey)
+            try {
+                NotificationHelper.cancel(ctx, habitId, dateKey)
+            } catch (t: Throwable) {
+                Log.e(TAG, "cancel mark", t)
+            }
         }
     }
 
@@ -92,9 +114,14 @@ class HabitsViewModel(app: Application) : AndroidViewModel(app) {
                 repo.importJson(raw)
                 NotificationHelper.scheduleAll(ctx, repo.getAllHabits())
                 onDone(true)
-            } catch (_: Exception) {
+            } catch (t: Throwable) {
+                Log.e(TAG, "import", t)
                 onDone(false)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "TimetableReview"
     }
 }

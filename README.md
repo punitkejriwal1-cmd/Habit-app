@@ -1,32 +1,14 @@
-# 1% Habits — Native Android (Kotlin)
+# Timetable Review (native Android)
 
-Habit tracker built with **Kotlin + Jetpack Compose** for Android phones and tablets.
+Kotlin + Jetpack Compose habit / timetable app.
 
-## Features
+- **App name:** Timetable Review
+- **Package ID:** `com.timetablereview.app` (installs next to the old 1% Habits app)
 
-- Timeline home: start time, end time, colored name pill, duration
-- Separate session times vs reminder time
-- Sticky ongoing notifications (`AlarmManager` + `NotificationCompat`)
-- Alarms rescheduled after reboot / app update
-- Done / Partial / Missed marking
-- OLED pure-black dark theme + light theme in Settings
-- JSON export / import
-- Room database (data survives APK updates)
+## Download APK
 
-## Build with Android Studio (recommended)
+GitHub → **Actions** → latest green run → artifact **one-percent-habits-native**
 
-1. Install [Android Studio](https://developer.android.com/studio)
-2. **File → Open** → select this repository folder
-3. Wait for Gradle sync
-4. Connect your phone (USB debugging) or use an emulator
-5. Press **Run**, or **Build → Build APK(s)**
+## Realme battery
 
-APK output: `app/build/outputs/apk/debug/app-debug.apk`
-
-## Realme / battery tips
-
-**Settings → Apps → 1% Habits → Battery → No restrictions**
-
-## Package
-
-`com.onepercent.habits`
+**Settings → Apps → Timetable Review → Battery → No restrictions**
