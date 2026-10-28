@@ -8,15 +8,11 @@ data class HabitEntity(
     @PrimaryKey val id: String,
     val name: String,
     val question: String = "",
-    /** Session start — shown on home timeline */
     val startTime: String,
-    /** Session end — shown on home timeline */
     val endTime: String = "",
-    /** When the notification fires (independent of start/end) */
     val reminderTime: String,
-    /** CSV of weekday ints: 0=Sun … 6=Sat */
     val reminderDays: String = "0,1,2,3,4,5,6",
-    val color: Long = 0xFF3B82F6,
+    val color: Long = 0xFF3B82F6L,
 )
 
 @Entity(tableName = "logs", primaryKeys = ["dateKey", "habitId"])

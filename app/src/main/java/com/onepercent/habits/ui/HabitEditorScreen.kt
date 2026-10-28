@@ -34,8 +34,8 @@ import com.onepercent.habits.data.HabitEntity
 
 private val DAY_LABELS = listOf("S", "M", "T", "W", "T", "F", "S")
 private val COLORS = listOf(
-    0xFF3B82F6, 0xFFEC4899, 0xFFA78B6D, 0xFF22C55E,
-    0xFF64748B, 0xFF8B5CF6, 0xFFF59E0B, 0xFF06B6D4,
+    0xFF3B82F6L, 0xFFEC4899L, 0xFFA78B6DL, 0xFF22C55EL,
+    0xFF64748BL, 0xFF8B5CF6L, 0xFFF59E0BL, 0xFF06B6D4L,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

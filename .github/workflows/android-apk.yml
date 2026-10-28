@@ -58,7 +58,23 @@ jobs:
           fi
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon --stacktrace
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "SDK contents:"
+          ls -la "$ANDROID_HOME" || true
+          gradle assembleDebug --no-daemon --stacktrace --info 2>&1 | tee build.log
+          # keep exit code from gradle
+          exit ${PIPESTATUS[0]}
+
+      - name: Print build errors on failure
+        if: failure()
+        run: |
+          echo "===== LAST 80 LINES OF BUILD LOG ====="
+          tail -n 80 build.log || true
+          echo "===== COMPILE ERRORS ====="
+          grep -E "e: |error:|FAILED|What went wrong" build.log || true
 
       - name: Locate APK
         id: apk

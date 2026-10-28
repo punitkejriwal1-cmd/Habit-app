@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +40,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.onepercent.habits.data.HabitEntity
 import com.onepercent.habits.data.LogEntity
 import java.time.LocalDate
@@ -55,7 +55,7 @@ fun HomeScreen(
     onOpenStatus: (habitId: String, dateKey: String) -> Unit,
     onSettings: () -> Unit,
 ) {
-    val state by vm.uiState.collectAsStateWithLifecycle()
+    val state by vm.uiState.collectAsState()
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -221,15 +221,15 @@ private fun HabitRow(
 @Composable
 private fun StatusCell(log: LogEntity?, onClick: () -> Unit) {
     val bg = when (log?.status) {
-        "done" -> Color(0xFF34D399)
-        "partial" -> Color(0xFFFBBF24)
-        "missed" -> Color(0xFFFB7185)
+        "done" -> Color(0xFF34D399L)
+        "partial" -> Color(0xFFFBBF24L)
+        "missed" -> Color(0xFFFB7185L)
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
     val fg = when (log?.status) {
-        "done" -> Color(0xFF052E22)
-        "partial" -> Color(0xFF1C1404)
-        "missed" -> Color(0xFF2A0A12)
+        "done" -> Color(0xFF052E22L)
+        "partial" -> Color(0xFF1C1404L)
+        "missed" -> Color(0xFF2A0A12L)
         else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Box(
