@@ -1,15 +1,14 @@
-# v1.1.5-compose-diag
+# Timetable Review v1.2.0
 
-Minimal **Compose-only** test (no ViewModel, no icons, no alarms).
+Full habit timetable app.
 
-## Expected screen
+## Install
 
-```
-v1.1.5-compose-diag OK
+1. GitHub → Actions → latest green **Android APK**
+2. Download **one-percent-habits-native**
+3. Uninstall previous version first
+4. Install APK and open
 
-Compose works on this phone.
-```
+## Realme / OPPO / Xiaomi
 
-Reply to Grok:
-- **Shows OK** → Compose is fine; crash was ViewModel/full UI
-- **Still crashes** → Compose/Material3 issue on this device (need phone model + Android version)
+Settings → Apps → Timetable Review → Battery → **No restrictions**
