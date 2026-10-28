@@ -26,12 +26,12 @@ object NotificationHelper {
                     "Habit reminders",
                     NotificationManager.IMPORTANCE_HIGH,
                 ).apply {
-                    description = "Sticky reminders until you mark the habit"
+                    description = "Habit reminders at the times you choose"
                 }
                 context.getSystemService(NotificationManager::class.java)
                     ?.createNotificationChannel(channel)
             }
-        } catch (t: Throwable) {
+        } catch (t: Exception) {
             Log.e(TAG, "createChannel", t)
         }
     }
@@ -57,8 +57,8 @@ object NotificationHelper {
             val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_popup_reminder)
                 .setContentTitle(habit.name)
-                .setContentText(" ")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentText("Time for your habit")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setOngoing(true)
                 .setAutoCancel(false)
@@ -66,7 +66,10 @@ object NotificationHelper {
                 .setContentIntent(contentPi)
                 .build()
             NotificationManagerCompat.from(context).notify(id, notification)
-        } catch (t: Throwable) {
+        } catch (t: SecurityException) {
+            // Notifications may be disabled by the user; do not crash the app.
+            Log.w(TAG, "Notification permission unavailable", t)
+        } catch (t: Exception) {
             Log.e(TAG, "showSticky", t)
         }
     }
@@ -74,15 +77,18 @@ object NotificationHelper {
     fun cancel(context: Context, habitId: String, dateKey: String) {
         try {
             NotificationManagerCompat.from(context).cancel(notificationId(habitId, dateKey))
-        } catch (t: Throwable) {
+        } catch (t: Exception) {
             Log.e(TAG, "cancel", t)
         }
     }
 
     fun schedule(context: Context, habit: Habit) {
+        val triggerAt = nextTriggerMillis(habit) ?: run {
+            cancelSchedule(context, habit.id)
+            return
+        }
         try {
             val am = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager ?: return
-            val triggerAt = nextTriggerMillis(habit) ?: return
             val intent = Intent(context, ReminderReceiver::class.java).apply {
                 putExtra("habitId", habit.id)
             }
@@ -90,12 +96,40 @@ object NotificationHelper {
                 context, habit.id.hashCode(), intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (am.canScheduleExactAlarms()) {
+                    am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+                } else {
+                    // Exact-alarm access is user-controlled on modern Android.
+                    // Keep reminders working with an inexact alarm instead of silently losing them.
+                    am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
             } else {
                 am.setExact(AlarmManager.RTC_WAKEUP, triggerAt, pi)
             }
-        } catch (t: Throwable) {
+        } catch (t: SecurityException) {
+            Log.w(TAG, "Exact alarm denied; trying inexact alarm", t)
+            try {
+                val am = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager ?: return
+                val intent = Intent(context, ReminderReceiver::class.java).apply {
+                    putExtra("habitId", habit.id)
+                }
+                val pi = PendingIntent.getBroadcast(
+                    context, habit.id.hashCode(), intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+                } else {
+                    am.set(AlarmManager.RTC_WAKEUP, triggerAt, pi)
+                }
+            } catch (fallback: Exception) {
+                Log.e(TAG, "Unable to schedule reminder", fallback)
+            }
+        } catch (t: Exception) {
             Log.e(TAG, "schedule", t)
         }
     }
@@ -113,20 +147,22 @@ object NotificationHelper {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
             am.cancel(pi)
-        } catch (t: Throwable) {
+            pi.cancel()
+        } catch (t: Exception) {
             Log.e(TAG, "cancelSchedule", t)
         }
     }
 
     private fun nextTriggerMillis(habit: Habit): Long? {
         val parts = habit.reminderTime.split(":")
-        if (parts.size < 2) return null
-        val hour = parts[0].toIntOrNull() ?: return null
-        val minute = parts[1].toIntOrNull() ?: return null
+        if (parts.size != 2) return null
+        val hour = parts[0].toIntOrNull()?.takeIf { it in 0..23 } ?: return null
+        val minute = parts[1].toIntOrNull()?.takeIf { it in 0..59 } ?: return null
         val days = habit.reminderDays.split(",")
-            .mapNotNull { it.trim().toIntOrNull() }
+            .mapNotNull { it.trim().toIntOrNull()?.takeIf { day -> day in 0..6 } }
             .toSet()
-            .ifEmpty { (0..6).toSet() }
+        if (days.isEmpty()) return null
+
         val now = Calendar.getInstance()
         val candidate = Calendar.getInstance().apply {
             set(Calendar.SECOND, 0)
@@ -136,8 +172,8 @@ object NotificationHelper {
         }
         for (i in 0..7) {
             if (i > 0) candidate.add(Calendar.DAY_OF_YEAR, 1)
-            val ourDow = (candidate.get(Calendar.DAY_OF_WEEK) - 1) % 7
-            if (ourDow in days && candidate.timeInMillis > now.timeInMillis + 2000) {
+            val ourDow = candidate.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY
+            if (ourDow in days && candidate.timeInMillis > now.timeInMillis + 2_000) {
                 return candidate.timeInMillis
             }
         }

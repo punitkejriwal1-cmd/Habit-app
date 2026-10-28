@@ -3,6 +3,8 @@ name: Android APK
 on:
   push:
     branches: [main, master]
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -38,10 +40,10 @@ jobs:
           gradle-version: "8.7"
           cache-disabled: true
 
-      - name: Build APK
+      - name: Build and verify APK
         run: |
           set -o pipefail
-          gradle :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee build.log
+          gradle :app:assembleDebug :app:lintDebug --no-daemon --stacktrace 2>&1 | tee build.log
 
       - name: Upload build log
         if: always()

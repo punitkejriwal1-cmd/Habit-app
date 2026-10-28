@@ -30,6 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import java.time.LocalTime
+import java.time.format.DateTimeParseException
 import com.onepercent.habits.data.Habit
 
 private val DAY_LABELS = listOf("S", "M", "T", "W", "T", "F", "S")
@@ -58,6 +60,10 @@ fun HabitEditorScreen(
         )
     }
     var color by remember { mutableStateOf(existing?.color ?: COLORS[0]) }
+    val validStart = isValidTime(start)
+    val validEnd = end.isBlank() || isValidTime(end)
+    val validReminder = isValidTime(remind.ifBlank { start })
+    val validTimes = validStart && validEnd && validReminder
 
     Scaffold(
         topBar = {
@@ -79,11 +85,14 @@ fun HabitEditorScreen(
             OutlinedTextField(value = question, onValueChange = { question = it }, label = { Text("Question (optional)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
             Text("Session time (display only)", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(value = start, onValueChange = { start = it }, label = { Text("Starts (HH:mm)") }, singleLine = true, modifier = Modifier.weight(1f))
-                OutlinedTextField(value = end, onValueChange = { end = it }, label = { Text("Ends (HH:mm)") }, singleLine = true, modifier = Modifier.weight(1f))
+                OutlinedTextField(value = start, onValueChange = { start = it }, label = { Text("Starts (HH:mm)") }, isError = !validStart, singleLine = true, modifier = Modifier.weight(1f))
+                OutlinedTextField(value = end, onValueChange = { end = it }, label = { Text("Ends (HH:mm)") }, isError = !validEnd, singleLine = true, modifier = Modifier.weight(1f))
             }
             Text("Reminder", style = MaterialTheme.typography.labelLarge)
-            OutlinedTextField(value = remind, onValueChange = { remind = it }, label = { Text("Remind me at (HH:mm)") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = remind, onValueChange = { remind = it }, label = { Text("Remind me at (HH:mm)") }, isError = !validReminder, singleLine = true, modifier = Modifier.fillMaxWidth())
+            if (!validTimes) {
+                Text("Enter valid 24-hour times, e.g. 09:30 or 18:05.", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+            }
             Text("Reminder days", style = MaterialTheme.typography.labelLarge)
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 DAY_LABELS.forEachIndexed { i, label ->
@@ -98,6 +107,7 @@ fun HabitEditorScreen(
             }
             Spacer(Modifier.height(8.dp))
             Button(
+                enabled = name.isNotBlank() && validTimes,
                 onClick = {
                     if (name.isBlank()) return@Button
                     onSave(
@@ -119,5 +129,15 @@ fun HabitEditorScreen(
                 }
             }
         }
+    }
+}
+
+private fun isValidTime(value: String): Boolean {
+    if (!value.matches(Regex("\\d{2}:\\d{2}"))) return false
+    return try {
+        LocalTime.parse(value)
+        true
+    } catch (_: DateTimeParseException) {
+        false
     }
 }
