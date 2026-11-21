@@ -1,0 +1,1551 @@
+{
+  "habits": [
+    {
+      "id": "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c",
+      "name": "Ready",
+      "question": "",
+      "startTime": "05:00",
+      "endTime": "06:30",
+      "reminderTime": "06:30",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#38BDF8",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "c6b418fe-9590-4b71-ab48-69a18efc9dfc",
+      "name": "Ready",
+      "question": "",
+      "startTime": "06:30",
+      "endTime": "07:30",
+      "reminderTime": "07:30",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#8B5CF6",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "be99684b-11d3-4a9e-9c0b-82c364afb65c",
+      "name": "Current affairs",
+      "question": "",
+      "startTime": "07:30",
+      "endTime": "08:30",
+      "reminderTime": "08:30",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#8B5CF6",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "84a28eb8-f67f-4689-905a-4057e30fecb2",
+      "name": "Test",
+      "question": "",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "reminderTime": "11:00",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#F97316",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "53be1d42-90f8-48d9-a237-2f05cadd7df5",
+      "name": "Flashcards",
+      "question": "",
+      "startTime": "12:00",
+      "endTime": "14:00",
+      "reminderTime": "14:00",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#38BDF8",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c",
+      "name": "New cards",
+      "question": "",
+      "startTime": "14:00",
+      "endTime": "16:30",
+      "reminderTime": "16:30",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#22C55E",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "88a9569f-c15b-4321-a729-3b65ae2e0f41",
+      "name": "Static",
+      "question": "",
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "reminderTime": "20:00",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#F87171",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "2bc36487-99db-4cf6-81b7-2c83ac0d213f",
+      "name": "Backlog",
+      "question": "",
+      "startTime": "20:00",
+      "endTime": "22:00",
+      "reminderTime": "22:00",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#F97316",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    },
+    {
+      "id": "192b5b2f-78de-409e-bbca-94e6773755e0",
+      "name": "Current affairs",
+      "question": "",
+      "startTime": "20:50",
+      "endTime": "21:00",
+      "reminderTime": "21:00",
+      "reminderMode": "end",
+      "reminderDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "color": "#8B5CF6",
+      "freqType": "daily",
+      "freqDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "freqNum": 2,
+      "freqDates": []
+    }
+  ],
+  "logs": {
+    "2026-11-01": {
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Phone Distraction"
+        ],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "partial",
+        "partialPct": 60,
+        "reasons": [],
+        "note": "I cant focus or may be its low energy i have to resist sleepness also so it take a lot of time"
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "partial",
+        "partialPct": 50,
+        "reasons": [],
+        "note": "reason is same as the review card block"
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "trying to complete the missed tasks"
+      },
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-02": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "partial",
+        "partialPct": 30,
+        "reasons": [],
+        "note": "wasted my time here and there like reading newspaper outside the time slot procrastination having tea etc"
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "partial",
+        "partialPct": 90,
+        "reasons": [],
+        "note": "completed the flash card review but with a leg actually the reviewing creped into new flash card block because of the same reason of laziness & sleepiness"
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "partial",
+        "partialPct": 70,
+        "reasons": [],
+        "note": "I have because I also completed the backlog from previous review flashcard block"
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "sleep at 10.30 pm"
+      }
+    },
+    "2026-11-03": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "partial",
+        "partialPct": 80,
+        "reasons": [],
+        "note": "around 30 flash cards remained which took me 20 more minutes but it I have to use 20 minutes from the current affairs block"
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "so I missed it because of the previous block I was Revenge the flash card as I have explained I used almost all of its time reviewing the flash cards"
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "partial",
+        "partialPct": 80,
+        "reasons": [],
+        "note": "so there is no matric for me to analyse Lake how much I completed it but I am not completely satisfied because I vested some of my time here and there so I think 80% is fair"
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "so I was installing festival lights as its Diwali so that's why I missed other blocks also"
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "partial",
+        "partialPct": 60,
+        "reasons": [],
+        "note": "same reason installing Diwali lights"
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "installing Diwali lights and tired after the process"
+      }
+    },
+    "2026-11-04": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-05": {
+      "__wake_up__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-06": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-07": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-08": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "6e3f00d3-65a2-4c4b-8bc0-88afb7fe9f54": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2a523541-840e-4cb0-b0e6-3eb4639c0907": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "8001600a-5111-48b4-90a9-01aa2f06066e": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-09": {
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-10": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-11": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [
+          "Diwali"
+        ],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-12": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "completing flashcards review"
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "doing new cards block"
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": "doing new cards block"
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-13": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-14": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "partial",
+        "partialPct": 50,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "partial",
+        "partialPct": 50,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-15": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "partial",
+        "partialPct": 80,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "partial",
+        "partialPct": 20,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-16": {
+      "__wake_up__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "partial",
+        "partialPct": 60,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-17": {
+      "__wake_up__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "partial",
+        "partialPct": 50,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "partial",
+        "partialPct": 90,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-18": {
+      "__wake_up__": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-19": {
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "53be1d42-90f8-48d9-a237-2f05cadd7df5": {
+        "status": "partial",
+        "partialPct": 90,
+        "reasons": [],
+        "note": "completed all the review flash card but late"
+      },
+      "ed011490-e6c8-47d6-9a0e-d62e8df8ad6c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "2bc36487-99db-4cf6-81b7-2c83ac0d213f": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "be99684b-11d3-4a9e-9c0b-82c364afb65c": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "__sleep__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "192b5b2f-78de-409e-bbca-94e6773755e0": {
+        "status": "missed",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    },
+    "2026-11-20": {
+      "__wake_up__": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "e20ca269-3c14-4ae4-b7ac-a7da9e94c48c": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "c6b418fe-9590-4b71-ab48-69a18efc9dfc": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      },
+      "88a9569f-c15b-4321-a729-3b65ae2e0f41": {
+        "status": "partial",
+        "partialPct": 20,
+        "reasons": [],
+        "note": "been to a family function"
+      },
+      "84a28eb8-f67f-4689-905a-4057e30fecb2": {
+        "status": "done",
+        "partialPct": 0,
+        "reasons": [],
+        "note": ""
+      }
+    }
+  },
+  "reasonsList": [
+    "Diwali",
+    "Procrastination",
+    "Sleep",
+    "YouTube"
+  ],
+  "appSettings": {
+    "dark_theme": true,
+    "font_scale": 0.8500000238418579,
+    "visible_days": 2,
+    "wake_up_time": "06:30",
+    "sleep_time": "23:00",
+    "schedule_configured": true,
+    "sticky_notifications": true,
+    "repeat_minutes": 30
+  }
+}
